@@ -1,0 +1,21 @@
+<h1>All Blocmarks</h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <% @topics.each do |t| %>
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= link_to t.title, t %>
+          </h4>
+          <small>
+            Table of bookmarks associated with this Title
+          </small>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-md-4">
+      <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+  </div>
+</div>
