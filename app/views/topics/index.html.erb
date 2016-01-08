@@ -1,0 +1,34 @@
+<h1 class="text-center">All Blocmarks</h1>
+
+<div class="row">
+  <div class="col-md-8">
+    <% @topics.each do |t| %>
+      <div class="media">
+        <div class="media-body">
+          <h4 class="media-heading">
+            <div class="text-center">
+            <%= link_to t.title, t %>
+            </div>
+          </h4>
+          <small>
+            <div class="row">
+              <% 7.times do |n|%>
+              <div class="col-xs-3">
+                 <ul>
+                  <li><small>bookmark <%= n+1 %> picture as link</small></li>
+                  <li><small>like/unlike status</small></li>
+                </ul>
+              </div>
+              <% end %>
+            </div>
+          </small>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-4">
+      <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="container-fluid">
+<h1 class="text-center">Topic:  <%= @topic.title%></h1>
+
+
+
+<div class="row">
+  <% 7.times do |n|%>
+  <div class="col-xs-3">
+     <ul>
+      <li><small>bookmark <%= n+1 %> picture as link</small></li>
+      <li><small>like/unlike status</small></li>
+    </ul>
+  </div>
+  <% end %>
+</div>
+
+<%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
+<%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
+</div>
