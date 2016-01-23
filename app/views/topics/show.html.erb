@@ -1,19 +1,41 @@
 <div class="container-fluid">
 <h1 class="text-center">Topic:  <%= @topic.title%></h1>
 
+  <small>
+    <div class="row">
+      <% @topic.bookmarks.each do |b| %>
+      <div class="col-xs-3">
+         <ul>
+          <li><small><%= link_to b.url %> </small></li>
+          <li>
+
+              <%= link_to "Show", topic_bookmark_path(b.topic, b), class: 'btn-xs btn-info' %>
 
 
-<div class="row">
-  <% 7.times do |n|%>
-  <div class="col-xs-3">
-     <ul>
-      <li><small>bookmark <%= n+1 %> picture as link</small></li>
-      <li><small>like/unlike status</small></li>
-    </ul>
+              <%= link_to "Edit", edit_topic_bookmark_path(b.topic, b), class: 'btn-xs btn-primary' %>
+
+
+              <%= link_to "Delete", [b.topic, b], method: :delete, class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you wnat to delete this bookmark?'} %>
+
+          </li>
+
+          <li><small>like/unlike status</small></li>
+        </ul>
+      </div>
+      <% end %>
+    </div>
+  </small>
+
+<% if user_signed_in? %>
+  <%= link_to "Edit Topic", edit_user_topic_path(current_user, @topic), class: 'btn btn-success' %>
+  <%= link_to "Delete Topic", user_topic_path(current_user, @topic), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
+
+  <div class="row">
+    <div class="col-md-4">
+        <% if user_signed_in? %>
+          <%= link_to "New Bookmark", new_topic_bookmark_path(@topic), class: 'btn btn-success' %>
+        <% end %>
+    </div>
   </div>
-  <% end %>
-</div>
-
-<%= link_to "Edit Topic", edit_topic_path, class: 'btn btn-success' %>
-<%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
+<% end %>
 </div>

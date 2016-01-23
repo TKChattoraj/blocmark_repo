@@ -29,28 +29,28 @@ RSpec.describe TopicsController, type: :controller do
 
     describe "GET #new" do
       it "redirects to the login view" do
-        get :new
+        get :new, {user_id: ""}
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     describe "GET #edit" do
       it "redirects to the login view" do
-        get :edit, {id: my_topic.id}
+        get :edit, {user_id: "", id: my_topic.id}
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     describe "PUT #update" do
       it "redirects to the login view" do
-        put :update, {id: my_topic.id, topic: {title: "Updated Title"}}
+        put :update, {user_id: "", id: my_topic.id, topic: {title: "Updated Title"}}
         expect(response).to redirect_to new_user_session_path
       end
     end
 
     describe "DELETE #destroy" do
       it "redirects to the login view" do
-        delete :destroy, {id: my_topic.id}
+        delete :destroy, {user_id: "", id: my_topic.id}
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -100,18 +100,23 @@ RSpec.describe TopicsController, type: :controller do
 
     describe "GET #new" do
       it "should return http success" do
-        get :new
+        get :new, {user_id: my_user.id}
         expect(response).to have_http_status(:success)
       end
 
       it "should render the new view" do
-        get :new
+        get :new, {user_id: my_user.id}
         expect(response).to render_template(:new)
       end
 
       it "should instantiate @topic" do
-        get :new
+        get :new, {user_id: my_user.id}
         expect(assigns(:topic)).to_not be_nil
+      end
+
+      it "should instantiate @user" do
+        get :new, {user_id: my_user.id}
+        expect(assigns(:user)).to eq my_user
       end
     end
 
@@ -122,62 +127,74 @@ RSpec.describe TopicsController, type: :controller do
       # end
 
       it "should render the Topic#show view" do
-        post :create, topic: {title: "New Topic Title", user_id: my_user.id}
+        post :create, user_id: my_user.id, topic: {title: "New Topic Title"}
         expect(response).to redirect_to topic_path(Topic.last.id)
       end
 
       it "should create a new Topic with the given attributes" do
-        post :create, topic: {title: "New Topic Title", user_id: my_user.id}
+        post :create, user_id: my_user.id, topic: {title: "New Topic Title"}
         title = "New Topic Title"
         expect(Topic.last.title).to eq title
       end
 
       it "should increase the number of topics by 1" do
-        expect{post :create, topic: {title: "new Topic Title", user_id: my_user.id}}.to change(Topic, :count).by(1)
+        expect{post :create, user_id: my_user.id, topic: {title: "New Topic Title"}}.to change(Topic, :count).by(1)
       end
     end
 
     describe "GET edit" do
 
       it "should return http success" do
-        get :edit, id: my_topic.id
+        get :edit, user_id: my_user.id, id: my_topic.id
         expect(response).to have_http_status(:success)
       end
 
       it "should render the #edit view" do
-        get :edit, id: my_topic.id
+        get :edit, user_id: my_user.id, id: my_topic.id
         expect(response).to render_template :edit
       end
 
       it "should set @topic to the appropriate topic" do
-        get :edit, id: my_topic.id
+        get :edit, user_id: my_user.id, id: my_topic.id
         expect(assigns(:topic)).to eq Topic.find(my_topic.id)
       end
     end
 
     describe "PUT update" do
       it "should render the Topic#show view" do
-        put :update, id: my_topic.id, topic: {title: "Revised Topic Title"}
+        put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
         expect(response).to redirect_to action: :show
       end
 
       it "should update the specified topic with the appropriate attributes" do
-        put :update, id: my_topic.id, topic: {title: "Revised Topic Title"}
+        put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
         expect(Topic.find(my_topic.id).title).to eq "Revised Topic Title"
       end
     end
 
     describe "DELETE destroy" do
       it "should render the Topic#index view" do
-        delete :destroy, id: my_topic.id
+        delete :destroy, user_id: my_user.id, id: my_topic.id
         expect(response).to redirect_to action: :index
       end
 
       it "should delete the specified topic" do
-        delete :destroy, id: my_topic.id
+        delete :destroy, user_id: my_user.id, id: my_topic.id
         count = Topic.where(my_topic.id).count
         expect(count).to eq 0
       end
+
+      it "should not delete the specified topic since it has a bookmark" do
+        bookmark = Bookmark.create!(url: "http://book_mark.com", topic_id: my_topic.id)
+        delete :destroy, user_id: my_user.id, id: my_topic.id
+        count = Topic.where(my_topic.id).count
+        expect(count).to eq 1
+      end
+
+
+
+
+
     end
   end  #end context signed in user
 

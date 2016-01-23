@@ -1,4 +1,4 @@
-include RandomData
+
 
 FactoryGirl.define do
   random = rand(1000)
