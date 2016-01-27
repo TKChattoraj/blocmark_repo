@@ -1,0 +1,10 @@
+<div class='row'>
+  <div class="col-xs-4">
+    <%= form_for [topic, bookmark] do |b| %>
+    <div class="form-group">
+      <%= b.text_field :url, class: 'form-control', placeholder: "enter bookmark http://like_this.com" %>
+    </div>
+    <%= b.submit "Save", class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>

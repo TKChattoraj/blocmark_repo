@@ -11,11 +11,14 @@ class TopicsController < ApplicationController
   end
 
   def new
+    @user = User.find(params[:user_id])
     @topic = Topic.new
   end
 
   def create
+
     @topic = Topic.new(topic_params)
+    @topic.user_id = params[:user_id]
 
     if @topic.save
       flash[:notice] = "Topic Created!"
@@ -27,31 +30,38 @@ class TopicsController < ApplicationController
 
   end
 
-  def edit
-    @topic = Topic.find(params[:id])
-  end
-
-  def update
-    @topic = Topic.find(params[:id])
-    @topic.assign_attributes(topic_params)
-
-    if @topic.save
-      flash[:notice] = "Topic was successfully updated"
-      redirect_to topic_path(@topic.id)
-    else
-      flash[:error] = "There was an error in updating the Topic.  Please try again."
-      render :edit
-    end
-
-  end
+  # def edit
+  #   @topic = Topic.find(params[:id])
+  #   @user = User.find(@topic.user_id)
+  # end
+  #
+  # def update
+  #   @topic = Topic.find(params[:id])
+  #   @topic.assign_attributes(topic_params)
+  #
+  #   if @topic.save
+  #     flash[:notice] = "Topic was successfully updated"
+  #     redirect_to topic_path(@topic.id)
+  #   else
+  #     flash[:error] = "There was an error in updating the Topic.  Please try again."
+  #     render :edit
+  #   end
+  #
+  # end
 
   def destroy
     @topic = Topic.find(params[:id])
-    if @topic.destroy
-      flash[:notice] = "Topic was deleted"
-      redirect_to topics_path
+
+    if @topic.bookmarks.empty?
+      if @topic.destroy
+        flash[:notice] = "Topic was deleted"
+        redirect_to topics_path
+      else
+        flash[:error] = "There was an error in deleting this topic"
+        redirect_to topic_path(@topic.id)
+      end
     else
-      flash[:error] = "There was an error in deleting this topic"
+      flash[:error] = "Cannot delete a topic with bookmarks!"
       redirect_to topic_path(@topic.id)
     end
 
@@ -61,6 +71,6 @@ class TopicsController < ApplicationController
   private
 
   def topic_params
-    params.require(:topic).permit(:title, :user_id)
+    params.require(:topic).permit(:title)
   end
 end
