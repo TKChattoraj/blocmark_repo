@@ -7,7 +7,6 @@
   <div class="col-md-8">
     <%= form_for [@topic, @bookmark] do |b| %>
     <div class="form-group">
-      <%= b.label :url %>
       <%= b.text_field :url, class: 'form-control', placeholder: "http://enter_book_mark_like_this.com" %>
     </div>
     <%= b.submit "Save", class: 'btn btn-success' %>

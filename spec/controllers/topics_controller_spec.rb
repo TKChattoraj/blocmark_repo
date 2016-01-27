@@ -34,19 +34,19 @@ RSpec.describe TopicsController, type: :controller do
       end
     end
 
-    describe "GET #edit" do
-      it "redirects to the login view" do
-        get :edit, {user_id: "", id: my_topic.id}
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
-
-    describe "PUT #update" do
-      it "redirects to the login view" do
-        put :update, {user_id: "", id: my_topic.id, topic: {title: "Updated Title"}}
-        expect(response).to redirect_to new_user_session_path
-      end
-    end
+    # describe "GET #edit" do
+    #   it "redirects to the login view" do
+    #     get :edit, {user_id: "", id: my_topic.id}
+    #     expect(response).to redirect_to new_user_session_path
+    #   end
+    # end
+    # 
+    # describe "PUT #update" do
+    #   it "redirects to the login view" do
+    #     put :update, {user_id: "", id: my_topic.id, topic: {title: "Updated Title"}}
+    #     expect(response).to redirect_to new_user_session_path
+    #   end
+    # end
 
     describe "DELETE #destroy" do
       it "redirects to the login view" do
@@ -142,35 +142,35 @@ RSpec.describe TopicsController, type: :controller do
       end
     end
 
-    describe "GET edit" do
+    # describe "GET edit" do
+    #
+    #   it "should return http success" do
+    #     get :edit, user_id: my_user.id, id: my_topic.id
+    #     expect(response).to have_http_status(:success)
+    #   end
+    #
+    #   it "should render the #edit view" do
+    #     get :edit, user_id: my_user.id, id: my_topic.id
+    #     expect(response).to render_template :edit
+    #   end
+    #
+    #   it "should set @topic to the appropriate topic" do
+    #     get :edit, user_id: my_user.id, id: my_topic.id
+    #     expect(assigns(:topic)).to eq Topic.find(my_topic.id)
+    #   end
+    # end
 
-      it "should return http success" do
-        get :edit, user_id: my_user.id, id: my_topic.id
-        expect(response).to have_http_status(:success)
-      end
-
-      it "should render the #edit view" do
-        get :edit, user_id: my_user.id, id: my_topic.id
-        expect(response).to render_template :edit
-      end
-
-      it "should set @topic to the appropriate topic" do
-        get :edit, user_id: my_user.id, id: my_topic.id
-        expect(assigns(:topic)).to eq Topic.find(my_topic.id)
-      end
-    end
-
-    describe "PUT update" do
-      it "should render the Topic#show view" do
-        put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
-        expect(response).to redirect_to action: :show
-      end
-
-      it "should update the specified topic with the appropriate attributes" do
-        put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
-        expect(Topic.find(my_topic.id).title).to eq "Revised Topic Title"
-      end
-    end
+    # describe "PUT update" do
+    #   it "should render the Topic#show view" do
+    #     put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
+    #     expect(response).to redirect_to action: :show
+    #   end
+    #
+    #   it "should update the specified topic with the appropriate attributes" do
+    #     put :update, user_id: my_user.id, id: my_topic.id, topic: {title: "Revised Topic Title"}
+    #     expect(Topic.find(my_topic.id).title).to eq "Revised Topic Title"
+    #   end
+    # end
 
     describe "DELETE destroy" do
       it "should render the Topic#index view" do
@@ -190,11 +190,6 @@ RSpec.describe TopicsController, type: :controller do
         count = Topic.where(my_topic.id).count
         expect(count).to eq 1
       end
-
-
-
-
-
     end
   end  #end context signed in user
 

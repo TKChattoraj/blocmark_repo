@@ -16,7 +16,8 @@ RSpec.describe BookmarksController, type: :controller do
 
     describe "GET #new" do
       it "redirects to the login view" do
-        get :new, {topic_id: my_topic.id}
+        xhr :get, :new, format: :js, topic_id: my_topic.id
+        #get :new, topic_id: my_topic.id
         expect(response).to redirect_to new_user_session_path
       end
     end
@@ -76,27 +77,27 @@ RSpec.describe BookmarksController, type: :controller do
 
     describe "GET #new" do
       it "returns http success" do
-        get :new, {topic_id: my_topic}
+        xhr :get, :new, format: :js, topic_id: my_topic
         expect(response).to have_http_status(:success)
       end
-      it "renders the new template" do
-        get :new, {topic_id: my_topic}
-        expect(response).to render_template :new
-      end
+      # it "renders the new template" do
+      #   get :new, format: :js, {topic_id: my_topic}
+      #   expect(response).to render_template :new
+      # end
       it "instantiates @bookmarks" do
-        get :new, {topic_id: my_topic}
+        xhr :get, :new, {format: :js, topic_id: my_topic}
         expect(assigns(:bookmark)).not_to be_nil
       end
     end
 
     describe "POST #create" do
       it "returns http found" do
-        post :create, {topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
+        xhr :post, :create, {format: :js, topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
         expect(response).to have_http_status(:found)
       end
 
-      it "redirects to the topic#view" do
-        post :create, {topic_id: my_topic.id, bookmark: {url: "http://new_bookmark.com"}}
+      it "redirects to the topic#show" do
+        post :create, {topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
         expect(response).to redirect_to my_topic
       end
 

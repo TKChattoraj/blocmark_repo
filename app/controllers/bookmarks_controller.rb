@@ -9,11 +9,19 @@ class BookmarksController < ApplicationController
   def new
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.new
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+
   end
+
+
 
   def create
     @topic = Topic.find(params[:topic_id])
-    @bookmark = @topic.bookmarks.create!(bookmark_params)
+    @bookmark = @topic.bookmarks.new(bookmark_params)
 
     if @bookmark.save
       flash[:notice] = "New Bookmark Created!"
@@ -21,7 +29,7 @@ class BookmarksController < ApplicationController
 
     else
       flash[:error] = "Bookmark NOT Created.  Try agian."
-      render_template :new
+      redirect_to new_topic_bookmark_path
     end
 
   end

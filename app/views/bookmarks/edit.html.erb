@@ -1,7 +1,8 @@
 <h1>Edit Bookmark</h1>
 
+
 <div class="row">
-  <%= form_for edit_topic_bookmark_path(@topic, @bookmark) do |f| %>
+  <%= form_for [@topic, @bookmark] do |f| %>
     <% if @bookmark.errors.any? %>
       <div class="alert alert-danger">
         <h4><%= pluralize(@bookmark.errors.count, "error") %>.</h4>
@@ -14,8 +15,8 @@
     <% end %>
 
     <%= form_group_tag(@bookmark.errors[:url]) do %>
-      <%= f.label :url %>
-      <%= f.text_field :url, class: 'form-control', placeholder: "http://enter_url_like_this.com" %>
+
+      <%= f.text_field :url, class: 'form-control' %>
     <% end %>
 
     <div class="form-group">
