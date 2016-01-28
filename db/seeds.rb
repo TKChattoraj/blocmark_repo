@@ -11,6 +11,10 @@ pete = User.create!(user_name: "CharlieHustle", email: "pete@rose.com", password
 pete.confirm
 pete.save
 
+default_user = User.create!(user_name: "EverydayMan", email: "man@nondescript.com", password: "hello_world", password_confirmation: "hello_world")
+default_user.confirm
+default_user.save
+
 
 users = User.all
 
@@ -29,6 +33,6 @@ end
 
 
 puts "Seed Finished"
-puts "#{User.count} users created including #{pete.user_name}"
+puts "#{User.count} users created including #{pete.user_name} and #{default_user.user_name}"
 puts "#{Topic.count} topics created"
 puts "#{Bookmark.count} bookmarks created"
