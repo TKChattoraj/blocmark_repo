@@ -1,1 +1,2 @@
-$('.js-bookmark-form').hide();
+$('.js-bookmark-form').html('');
+$('.bookmark_elements').prepend("<%= escape_javascript(render partial: 'bookmarks/create', locals: {b: @bookmark}) %>");

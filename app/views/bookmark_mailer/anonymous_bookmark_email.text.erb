@@ -1,0 +1,5 @@
+We got your new Bookmark <%= @bookmark.url %>.  Thanks for making Blocmark so great.
+
+Now for a little cleanup.
+
+Since you are not yet a member of Blockmark, we created a temporary account for you under email: <%= @user.email %>.  Your temporary username is <%= @user.user_name %> and your temporary password is <%= @user.password %>.  Sign in and change your temporary username and password.  Your Bookmark will automatically convert over.  Let's go to <%= link_to(Blocmark, @blocmark) %> now!

@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :topics, except: [:index, :show]
   end
 
-  resources :topics , only: [:index, :show] do
+  resources :topics, only: [:index, :show] do
     resources :bookmarks, except: [:index]
   end
 
