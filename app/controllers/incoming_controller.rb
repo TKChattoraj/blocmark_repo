@@ -19,7 +19,9 @@ skip_before_action :verify_authenticity_token, only: [:create]
       # This is needed because test emails are coming from only
       # one active gmail address.  Application assumes a brand new # address and so don't want to have to delete from db
       # after every test.
-      params[:sender] = "user_#{rand(1..10000)}@email.com"
+
+      #params[:sender] = "user_#{rand(1..10000)}@email.com"
+
       #
       #
       # Delete the above line when finished with the
