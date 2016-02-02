@@ -1,10 +1,12 @@
-<div class="container-fluid">
+<!-- <div class="container-fluid"> -->
 <h1 class="text-center">Topic:  <%= @topic.title%></h1>
 
-  <small>
+  <!-- <small> -->
     <div class="row">
+      <div class="bookmark_elements" >
       <% @topic.bookmarks.each do |b| %>
-      <div class="col-xs-3">
+
+      <div class="col-md-3 col-sm-4 col-xs-6">
         <ul>
           <li><small><%= link_to b.url %> </small></li>
           <li>
@@ -21,23 +23,25 @@
           <li><small>like/unlike status</small></li>
         </ul>
       </div>
+
       <% end %>
-    </div>
-  </small>
-  <small>
-    <div class="row">
-      <% if user_signed_in? %>
-        <div class='col-xs-3'>
-          <%= link_to "Delete Topic", user_topic_path(current_user, @topic), method: :delete, class: 'btn btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
-        </div>
-        <div class='col-xs-3'>
-          <%= link_to "New Bookmark", new_topic_bookmark_path(@topic), remote: true, class: 'btn btn-success' %>
-        </div>
-      <% end %>
-    </div>
-    <div class="row">
-      <div class='js-bookmark-form'>
       </div>
     </div>
-  </small>
-</div>
+
+    <div class="row">
+      <% if user_signed_in? %>
+        <% if @topic.bookmarks.empty? %>
+          <div class='col-md-3 col-sm-4 col-xs-4'>
+            <%= link_to "Delete Topic", user_topic_path(current_user, @topic), method: :delete, class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you want to delete this topic?'} %>
+          </div>
+        <% end %>
+        <div class='col-md-3 col-sm-4 col-xs-4'>
+          <%= link_to "New Bookmark", new_topic_bookmark_path(@topic), remote: true, class: 'btn-xs btn-success' %>
+        </div>
+        <div class='col-md-6, col-sm-4 col-xs-4'>
+          <div class='js-bookmark-form'>
+          </div>
+        </div>
+
+      <% end %>
+    </div>

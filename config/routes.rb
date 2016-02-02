@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   #
   # get 'bookmarks/edit'
   #
+  post :incoming, to: 'incoming#create'
 
 
   devise_for :users, controllers: { confirmations: "users/confirmations", passwords: "users/passwords", registrations: "users/registrations", sessions: "users/sessions", unlocks: "users/unlocks"}
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
     resources :topics, except: [:index, :show]
   end
 
-  resources :topics , only: [:index, :show] do
+  resources :topics, only: [:index, :show] do
     resources :bookmarks, except: [:index]
   end
 
