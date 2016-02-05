@@ -27,7 +27,7 @@ topics = Topic.all
 
 # Create Bookmarks
 120.times do |n|
-  Bookmark.create!(url: "www.bookmark_#{n}.com", topic: topics.sample)
+  Bookmark.create!(url: "www.bookmark_#{n}.com", topic: topics.sample, user: users.sample)
 end
 
 

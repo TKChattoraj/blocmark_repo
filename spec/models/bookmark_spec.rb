@@ -5,9 +5,10 @@ RSpec.describe Bookmark, type: :model do
   let(:topic) {create(:topic, user: user)}
   let(:topic2) {create(:topic, user: user)}
 
-  let(:bookmark) {Bookmark.create!(url: "http://sample.com", topic_id: topic.id)}
+  let(:bookmark) {Bookmark.create!(url: "http://sample.com", topic_id: topic.id, user_id: user.id)}
 
   it {should belong_to(:topic)}
+  it {should belong_to(:user)}
   it {should validate_presence_of(:url)}
   it {should validate_presence_of(:topic)}
   # it {should_not allow_value(3).for(:topic_id)}
@@ -20,11 +21,15 @@ RSpec.describe Bookmark, type: :model do
   it {should_not allow_value("http://sample.").for(:url)}
   describe "attributes" do
     it "should respond to url" do
-      # byebug
-      puts topic.id
-      puts topic2.id
-      puts Topic.ids
       expect(bookmark).to respond_to(:url)
+    end
+    it "should respond to user_id" do
+      expect(bookmark).to respond_to(:user_id)
+    end
+
+    it "should not allow a non-existant user_id" do
+      bookmark.user_id = 2
+      expect(bookmark.valid?).to eq(false)
     end
 
     it "should not allow a non-existant topic_id" do
