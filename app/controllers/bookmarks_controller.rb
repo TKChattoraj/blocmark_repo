@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  after_action :verify_authorized, only: [:create, :update, :destroy]
 
   def show
     @topic = Topic.find(params[:topic_id])
