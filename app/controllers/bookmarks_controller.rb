@@ -11,6 +11,8 @@ class BookmarksController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.new
 
+    authorize @bookmark
+
     respond_to do |format|
       format.html
       format.js
@@ -43,7 +45,9 @@ class BookmarksController < ApplicationController
 
 
   def edit
+
     @bookmark = Bookmark.find(params[:id])
+    authorize @bookmark
     @topic = Topic.find(@bookmark.topic_id)
   end
 
@@ -52,6 +56,7 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.find(params[:id])
 
     authorize @bookmark
+    params[:bookmark][:created_at]
 
     if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark Updated!"
@@ -83,6 +88,7 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
+    # Strong params for the bookmark
     params.require(:bookmark).permit(:url)
   end
 

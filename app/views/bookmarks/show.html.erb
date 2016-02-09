@@ -3,7 +3,7 @@
 <h1 class="text-center">Bookmark:  <%= @bookmark.url %></h1>
 <div class='row'>
   <div class='col-xs-4'>
-    <% if policy(:@bookmark).update? %>
+    <% if policy(@bookmark).update? %>
       <%= link_to "Edit Bookmark", edit_topic_bookmark_path(@bookmark.topic, @bookmark), class: 'btn btn-success' %>
     <% end %>
   </div>

@@ -20,4 +20,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  pundit:
+    default: 'You cannot perform this action.'
+    bookmark_policy:
+      new?:  'You cannot create a Bookmark!  Sign-in First.'
+      create?: 'You cannot create a Bookmark!  Sign-in First.'
+      edit?:  'You cannot edit a Bookmark.  Sign-in and be the Bookmark Owner.'
+      update?:  'You cannot update a Bookmark.  Sign-in and be the Bookmark Owner.'
+      destroy?:  'You cannot delete a Bookmark.  Sign-in and be the Bookmark Owner.'
