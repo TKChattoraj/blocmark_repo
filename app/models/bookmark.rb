@@ -1,6 +1,9 @@
 class Bookmark < ActiveRecord::Base
   belongs_to :topic
   belongs_to :user
+  has_many :likes
+  has_many :users, through :likes
+
   URL_REGEX = /\A((https?:\/\/)|(www.))[\w]+\.com\z/i
   validates :url,
             presence: true,
