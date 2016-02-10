@@ -9,6 +9,8 @@ RSpec.describe Bookmark, type: :model do
 
   it {should belong_to(:topic)}
   it {should belong_to(:user)}
+  it {should have_many(:users)}
+
   it {should validate_presence_of(:url)}
   it {should validate_presence_of(:topic)}
   # it {should_not allow_value(3).for(:topic_id)}

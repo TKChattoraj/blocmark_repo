@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   let(:user) {create(:user)}
 
+  it {should have_many :bookmarks}
+
   # Shoulda tests for user_name
   it {should validate_presence_of(:user_name)}
 
