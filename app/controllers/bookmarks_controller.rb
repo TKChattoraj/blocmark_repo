@@ -1,5 +1,6 @@
 class BookmarksController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  after_action :verify_authorized, only: [:create, :update, :destroy]
 
   def show
     @topic = Topic.find(params[:topic_id])
@@ -9,6 +10,8 @@ class BookmarksController < ApplicationController
   def new
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.new
+
+    authorize @bookmark
 
     respond_to do |format|
       format.html
@@ -20,6 +23,9 @@ class BookmarksController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.new(bookmark_params)
+    @bookmark.user = current_user
+
+    authorize @bookmark
 
     if @bookmark.save
       flash[:notice] = "New Bookmark Created!"
@@ -39,7 +45,9 @@ class BookmarksController < ApplicationController
 
 
   def edit
+
     @bookmark = Bookmark.find(params[:id])
+    authorize @bookmark
     @topic = Topic.find(@bookmark.topic_id)
   end
 
@@ -47,6 +55,8 @@ class BookmarksController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.find(params[:id])
 
+    authorize @bookmark
+    params[:bookmark][:created_at]
 
     if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark Updated!"
@@ -62,6 +72,8 @@ class BookmarksController < ApplicationController
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.find(params[:id])
 
+    authorize @bookmark
+
     if @bookmark.destroy
       flash[:notice] = "Bookmark was deleted."
       redirect_to @topic
@@ -76,6 +88,7 @@ class BookmarksController < ApplicationController
   private
 
   def bookmark_params
+    # Strong params for the bookmark
     params.require(:bookmark).permit(:url)
   end
 

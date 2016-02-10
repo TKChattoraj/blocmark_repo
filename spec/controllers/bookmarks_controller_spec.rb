@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe BookmarksController, type: :controller do
   let(:my_user) {create(:user)}
   let(:my_topic) {create(:topic, user: my_user)}
-  let(:my_bookmark) {my_topic.bookmarks.create!(url: "http://fake_bookmark.com")}
+  let(:my_bookmark) {my_topic.bookmarks.create!(url: "http://fake_bookmark.com", user_id: my_user.id)}
 
   context "user NOT signed in" do
 
@@ -18,7 +18,7 @@ RSpec.describe BookmarksController, type: :controller do
       it "redirects to the login view" do
         xhr :get, :new, format: :js, topic_id: my_topic.id
         #get :new, topic_id: my_topic.id
-        expect(response).to redirect_to new_user_session_path
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 
@@ -93,13 +93,13 @@ RSpec.describe BookmarksController, type: :controller do
     describe "POST #create" do
       it "returns http found" do
         xhr :post, :create, {format: :js, topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
-        expect(response).to have_http_status(:found)
+        expect(response).to have_http_status(:success)
       end
 
-      it "redirects to the topic#show" do
-        post :create, {topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
-        expect(response).to redirect_to my_topic
-      end
+      # it "redirects to the topic#show" do
+      #   post :create, {topic_id: my_topic, bookmark: {url: "http://new_bookmark.com"}}
+      #   expect(response).to redirect_to my_topic
+      # end
 
       it "increases the number of bookmarks by 1" do
         expect{post :create, {topic_id: my_topic.id, bookmark: {url: "http://special_bookmark.com"}}}.to change(Bookmark, :count).by(1)
@@ -111,6 +111,7 @@ RSpec.describe BookmarksController, type: :controller do
         new_bookmark = Bookmark.last
         expect(new_bookmark.url).to eq new_url
         expect(new_bookmark.topic_id).to eq my_topic.id
+        expect(new_bookmark.user_id).to eq my_user.id
       end
     end
 
