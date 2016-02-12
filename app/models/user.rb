@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :user_name
 
+  def liked(bookmark)
+    likes.where(bookmark_id: bookmark).first
+  end
+
 end

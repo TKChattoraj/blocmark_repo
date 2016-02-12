@@ -23,7 +23,7 @@
               <% end %>
 
           </li>
-          <li><small>like/unlike status</small></li>
+          <li><%= render partial: 'likes/like', locals: {bookmark: b} %></li>
         </ul>
       </div>
 
