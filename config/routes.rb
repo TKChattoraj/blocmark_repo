@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  # get 'bookmarks/show'
-  #
-  # get 'bookmarks/new'
-  #
-  # get 'bookmarks/edit'
-  #
+  
   post :incoming, to: 'incoming#create'
 
 
@@ -16,6 +11,10 @@ Rails.application.routes.draw do
 
   resources :topics, only: [:index, :show] do
     resources :bookmarks, except: [:index]
+  end
+
+  resources :bookmarks, except: [:index] do
+    resources :likes, only: [:index, :create, :destroy]
   end
 
   get 'welcome/index'
