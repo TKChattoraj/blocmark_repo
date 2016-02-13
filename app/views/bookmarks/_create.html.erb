@@ -12,6 +12,6 @@
         <%= link_to "Delete", [b.topic, b], method: :delete, class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you wnat to delete this bookmark?'} %>
 
     </li>
-    <li><small>like/unlike status</small></li>
+    <li><li><%= render partial: 'likes/like', locals: {bookmark: b} %></li></li>
   </ul>
 </div>

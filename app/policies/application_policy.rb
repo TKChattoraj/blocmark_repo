@@ -16,7 +16,6 @@ class ApplicationPolicy
 
   def create?
     user.present?
-    # current_user
   end
 
   def new?
@@ -25,7 +24,6 @@ class ApplicationPolicy
 
   def update?
     user.present? && (record.user == user)
-    # current_user == record.user
   end
 
   def edit?
@@ -34,7 +32,6 @@ class ApplicationPolicy
 
   def destroy?
     user.present? && (record.user == user)
-    # current_user == record.user
   end
 
   def scope

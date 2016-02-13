@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   post :incoming, to: 'incoming#create'
 
 
@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   resources :bookmarks, except: [:index] do
     resources :likes, only: [:index, :create, :destroy]
   end
+
+  get 'likes/index'
 
   get 'welcome/index'
 

@@ -1,6 +1,6 @@
 class LikesController < ApplicationController
   def index
-    @likes = Like.all
+    @topics = Topic.all
   end
 
   def create
@@ -9,11 +9,13 @@ class LikesController < ApplicationController
     @like = Like.new(bookmark_id:  @bookmark.id, user_id: current_user.id)
 
     if @like.save
-      flash[:notice] = "You like #{@bookmark}!"
-      redirect_to @bookmark.topic
+      flash[:notice] = "You like #{@bookmark.url}!"
+      #redirect_to @bookmark.topic
+      redirect_to :back
     else
       flash[:error] = "Error:  Like not complete"
-      redirect_to @bookmark.topic
+      #redirect_to @bookmark.topic
+      redirect_to :back
     end
 
 
@@ -25,10 +27,10 @@ class LikesController < ApplicationController
 
     if @like.destroy
       flash[:notice] = "You unliked the bookmark"
-      redirect_to @bookmark.topic
+      redirect_to :back
     else
       flash[:error] = "Error!  You still like the bookmark"
-      redirect_to @bookmark.topic
+      redirect_to :back
     end
   end
 end
