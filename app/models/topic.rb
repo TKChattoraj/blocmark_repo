@@ -3,6 +3,13 @@ class Topic < ActiveRecord::Base
   has_many :bookmarks
 
   validates :title, presence: true
-  # validates :users, presence: true
-  # This is a placeholder and will be replaced in the next commit
+
+  def liked_bookmarks
+    topic_bookmarks = self.bookmarks
+    liked_bookmarks = []
+    Like.all.each do |l|
+      liked_bookmarks << Bookmark.find(l.bookmark_id)
+    end
+    liked_bookmarks & topic_bookmarks
+  end
 end

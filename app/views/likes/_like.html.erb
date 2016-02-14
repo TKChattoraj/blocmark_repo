@@ -1,0 +1,11 @@
+<div>
+  <% if current_user.liked(bookmark) %>
+    <%= link_to [bookmark, bookmark.likes.where(user_id: current_user.id).first], class: 'btn-xs btn-danger', method: :delete do %>
+      <i class="glyphicon glyphicon-star-empty"></i>&nbsp; Unlike
+    <% end %>
+  <% else %>
+    <%= link_to [bookmark, Like.new], class: 'btn-xs btn-primary', method: :post do %>
+      <i class="glyphicon glyphicon-star"></i>&nbsp; Like
+    <% end %>
+  <% end %>
+</div>

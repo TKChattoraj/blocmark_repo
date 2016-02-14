@@ -3,7 +3,11 @@ class TopicsController < ApplicationController
 
 
   def index
-    @topics = Topic.all
+      @topics = Topic.all
+      @bookmarks_hash = Hash.new
+      @topics.each do |t|
+        @bookmarks_hash[t] = t.bookmarks
+      end
   end
 
   def show
@@ -29,25 +33,6 @@ class TopicsController < ApplicationController
     end
 
   end
-
-  # def edit
-  #   @topic = Topic.find(params[:id])
-  #   @user = User.find(@topic.user_id)
-  # end
-  #
-  # def update
-  #   @topic = Topic.find(params[:id])
-  #   @topic.assign_attributes(topic_params)
-  #
-  #   if @topic.save
-  #     flash[:notice] = "Topic was successfully updated"
-  #     redirect_to topic_path(@topic.id)
-  #   else
-  #     flash[:error] = "There was an error in updating the Topic.  Please try again."
-  #     render :edit
-  #   end
-  #
-  # end
 
   def destroy
     @topic = Topic.find(params[:id])
