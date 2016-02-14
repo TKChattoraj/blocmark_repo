@@ -3,7 +3,11 @@ class TopicsController < ApplicationController
 
 
   def index
-    @topics = Topic.all
+      @topics = Topic.all
+      @bookmarks_hash = Hash.new
+      @topics.each do |t|
+        @bookmarks_hash[t] = t.bookmarks
+      end
   end
 
   def show
