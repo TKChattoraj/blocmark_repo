@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
 
+
+
   post :incoming, to: 'incoming#create'
 
 
   devise_for :users, controllers: { confirmations: "users/confirmations", passwords: "users/passwords", registrations: "users/registrations", sessions: "users/sessions", unlocks: "users/unlocks"}
 
-  resources :users do
+  resources :users, only: [:show] do
     resources :topics, except: [:index, :show]
   end
 
