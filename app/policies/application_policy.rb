@@ -31,7 +31,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    user.present? && (record.user == user)
+    #see bookmark_policy.rb for specific conditions to destroy bookmark
   end
 
   def scope

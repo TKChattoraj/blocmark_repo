@@ -18,4 +18,12 @@ class Bookmark < ActiveRecord::Base
   #           presence: true,
   #           inclusion: {in: Topic.ids, message:  "Bookmark does not have a valid topic"}
 
+  def self.liked_bookmarks
+    Like.all.map do |l|
+      l.bookmark
+    end
+  end
+
+
+
 end

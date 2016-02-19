@@ -1,11 +1,11 @@
 class LikesController < ApplicationController
   def index
     @topics = Topic.all
-    @bookmarks_hash = Hash.new
-    @topics.each do |t|
-      @bookmarks_hash[t] = t.liked_bookmarks
-    end
-    
+    # @bookmarks_hash = Hash.new
+    # @topics.each do |t|
+    #   @bookmarks_hash[t] = t.liked_bookmarks
+    # end
+    @bookmarks_hash = Bookmark.liked_bookmarks.group_by{|b| b.topic}.sort.to_h
   end
 
   def create
