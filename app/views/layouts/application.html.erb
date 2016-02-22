@@ -14,6 +14,13 @@
       <li><%= link_to "About", welcome_about_path %></li>
       <li><%= link_to "Topics", topics_path %></li>
       <li><%= link_to "All Likes", likes_index_path %></li>
+
+      <% # Think about changing this code to use policy instead %>
+      <% if user_signed_in? %>
+        <li><%= link_to "My Bookmarks", user_path(current_user) %></li>
+      <% end %>
+      <% # #### %>
+
       <div class="pull-right user-info", style="margin: 10px;">
         <% if user_signed_in? %>
                Signed in as: <strong><%= current_user.user_name %></strong>

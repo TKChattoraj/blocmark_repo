@@ -4,14 +4,17 @@ class TopicsController < ApplicationController
 
   def index
       @topics = Topic.all
-      @bookmarks_hash = Hash.new
-      @topics.each do |t|
-        @bookmarks_hash[t] = t.bookmarks
-      end
+      #@bookmarks_hash = Bookmark.all.group_by(& :topic)
+      @bookmarks_hash = Bookmark.all.group_by{|b| b.topic}.sort.to_h
+      # @bookmarks_hash = Hash.new
+      # @topics.each do |t|
+      #   @bookmarks_hash[t] = t.bookmarks
+      # end
   end
 
   def show
     @topic = Topic.find(params[:id])
+    @topic_bookmarks_hash = @topic.bookmarks.group_by{|b| b.topic}.sort.to_h
   end
 
   def new

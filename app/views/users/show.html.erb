@@ -1,0 +1,7 @@
+<h1 class="text-center">My Bookmarks</h1>
+
+<%= render partial: 'bookmarks/bookmarks_by_topic', locals: {topics_bookmarks_hash: @user_bookmarks_hash} %>
+
+<h1 class="text-center">My Liked Bookmarks!</h1>
+
+<%= render partial: 'bookmarks/bookmarks_by_topic', locals: {topics_bookmarks_hash: @user_liked_bookmarks_hash} %>

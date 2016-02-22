@@ -56,7 +56,7 @@ class BookmarksController < ApplicationController
     @bookmark = Bookmark.find(params[:id])
 
     authorize @bookmark
-    params[:bookmark][:created_at]
+    # params[:bookmark][:created_at]
 
     if @bookmark.update_attributes(bookmark_params)
       flash[:notice] = "Bookmark Updated!"
