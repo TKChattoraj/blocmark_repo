@@ -14,6 +14,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    @topic_bookmarks_hash = @topic.bookmarks.group_by{|b| b.topic}.sort.to_h
   end
 
   def new

@@ -1,0 +1,12 @@
+<li>
+    <%= link_to "Show", topic_bookmark_path(bookmark.topic, bookmark), class: 'btn-xs btn-info' %>
+    <% if policy(bookmark).update? %>
+      <%= link_to "Edit", edit_topic_bookmark_path(bookmark.topic, bookmark), class: 'btn-xs btn-primary' %>
+    <% end %>
+
+    <% if policy(bookmark).destroy? %>
+      <%= link_to "Delete", [bookmark.topic, bookmark], :method => 'delete', class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you wnat to delete this bookmark?'} %>
+    <% end %>
+</li>
+<li><%= render partial: 'likes/like', locals: {bookmark: bookmark} %>
+</li>

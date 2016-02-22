@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="bookmark_elements" >
+  <% @topic.bookmarks.each do |b| %>
+
+  <div class="col-md-3 col-sm-4 col-xs-6">
+    <ul>
+      <li><small><%= link_to b.url %> </small></li>
+      <li>
+
+          <%= link_to "Show", topic_bookmark_path(b.topic, b), class: 'btn-xs btn-info' %>
+
+          <% if policy(b).update? %>
+            <%= link_to "Edit", edit_topic_bookmark_path(b.topic, b), class: 'btn-xs btn-primary' %>
+          <% end %>
+
+
+          <% if policy(b).destroy? %>
+
+            <%= link_to "Delete", [b.topic, b], :method => 'delete', class: 'btn-xs btn-danger', data: {confirm: 'Are you sure you wnat to delete this bookmark?'} %>
+          <% end %>
+
+      </li>
+      <li><%= render partial: 'likes/like', locals: {bookmark: b} %></li>
+    </ul>
+  </div>
+
+  <% end %>
+  </div>
+</div>
