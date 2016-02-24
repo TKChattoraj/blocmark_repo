@@ -36,9 +36,8 @@
 <% #
 # end of the thumbnail
 # %>
-                          <% unless (controller.controller_name == "topics" && controller.action_name == "index") %>
-                            <%= render partial: 'bookmarks/bookmark_options', locals: {bookmark: b} %>
-                          <% end %>
+                          <%= render_buttons(b) %>
+
 
                           <li><small><%= link_to b.url %> </small></li>
                         </ul>

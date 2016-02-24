@@ -12,4 +12,11 @@ class Topic < ActiveRecord::Base
     end
     liked_bookmarks & topic_bookmarks
   end
+  #
+  # def some_other_method
+  #   liked_bookmarks
+  # end
 end
+#
+# t = Topic.last
+# t.some_other_method
