@@ -7,7 +7,7 @@ gem 'figaro', '1.0'
 gem 'pundit'
 
 # LinkThumbnailer
-gem 'link_thumbnailer'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
